@@ -37,7 +37,7 @@ export const useToolsFunctions = () => {
       success: true,
       time: now.toLocaleTimeString(),
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      message: t('tools.time') + now.toLocaleTimeString() + " в " + Intl.DateTimeFormat().resolvedOptions().timeZone + " часовом поясе."
+      message: t('tools.time') + now.toLocaleTimeString() + " in " + Intl.DateTimeFormat().resolvedOptions().timeZone + " timezone."
     }
   }
 
@@ -50,7 +50,7 @@ export const useToolsFunctions = () => {
       html.classList.remove(currentTheme);
       html.classList.add(newTheme);
 
-      toast(`Переключено на ${newTheme} режим! 🌓`, {
+      toast(`Switched to ${newTheme} mode! 🌓`, {
         description: t('tools.switchTheme') + newTheme + ".",
       })
 
@@ -161,11 +161,11 @@ export const useToolsFunctions = () => {
   const launchWebsite = ({ url }: { url: string }) => {
     window.open(url, '_blank')
     toast(t('tools.launchWebsite') + " 🌐", {
-      description: t('tools.launchWebsiteSuccess') + url + ", сообщите пользователю, что сайт запущен.",
+      description: t('tools.launchWebsiteSuccess') + url + ", inform the user that the website has been launched.",
     })
     return {
       success: true,
-      message: `Сайт ${url} запущен, сообщите пользователю, что сайт запущен.`
+      message: `Website ${url} launched, inform the user that the website has been launched.`
     }
   }
 
@@ -191,7 +191,7 @@ export const useToolsFunctions = () => {
         console.log(scrapeResult.error)
         return {
           success: false,
-          message: `Не удалось скрапить: ${scrapeResult.error}`
+          message: `Failed to scrape: ${scrapeResult.error}`
         };
       }
 
@@ -201,13 +201,13 @@ export const useToolsFunctions = () => {
     
       return {
         success: true,
-        message: "Вот содержимое скраппированного сайта: " + JSON.stringify(scrapeResult.markdown) + "Суммируйте и объясните его пользователю сейчас в ответе."
+        message: "Here is the content of the scraped website: " + JSON.stringify(scrapeResult.markdown) + "Summarize and explain it to the user now in the response."
       };
 
     } catch (error) {
       return {
         success: false,
-        message: `Ошибка скрапинга сайта: ${error}`
+        message: `Website scraping error: ${error}`
       };
     }
   }
@@ -258,18 +258,18 @@ export const useToolsFunctions = () => {
 
     if (!targetPath) {
       const availablePages = Object.keys(pageMap).slice(0, 8).join(', ');
-      toast.error("Страница не найдена", {
-        description: `Страница "${page}" не существует. Доступные страницы: ${availablePages}.`,
+      toast.error("Page not found", {
+        description: `Page "${page}" does not exist. Available pages: ${availablePages}.`,
       });
-      return {
-        success: false,
-        message: `Страница "${page}" не найдена. Доступные страницы: ${availablePages}.`
-      };
+              return {
+          success: false,
+          message: `Page "${page}" not found. Available pages: ${availablePages}.`
+        };
     }
 
     try {
-      toast.success("Навигация завершена", {
-        description: `Навигация к странице "${page}"`,
+      toast.success("Navigation completed", {
+        description: `Navigation to page "${page}"`,
       });
       
       // Small delay to ensure toast is shown
@@ -309,7 +309,7 @@ export const useToolsFunctions = () => {
         success: true,
         page: page,
         path: targetPath,
-        message: `Успешно навигация к странице "${page}". ${targetPath === '/' ? 'Это главная страница сайта.' : 'Страница загружена.'}`
+        message: `Successfully navigated to page "${page}". ${targetPath === '/' ? 'This is the main page of the site.' : 'Page loaded.'}`
       };
       
       console.log('Navigation result:', result);
@@ -318,7 +318,7 @@ export const useToolsFunctions = () => {
       console.error('Navigation error:', error);
       return {
         success: false,
-        message: `Ошибка навигации к странице "${page}": ${error}`
+        message: `Navigation error to page "${page}": ${error}`
       };
     }
   }
@@ -328,20 +328,20 @@ export const useToolsFunctions = () => {
     console.log('nextSlide called');
     if (globalPresentationControl?.nextSlide) {
       globalPresentationControl.nextSlide();
-      toast.success("Следующий слайд", {
-        description: "Переход к следующему слайду",
+      toast.success("Next slide", {
+        description: "Moving to next slide",
         duration: 2000,
       });
     } else {
-      toast.error("Презентация недоступна", {
-        description: "Активная презентация не найдена",
+      toast.error("Presentation unavailable", {
+        description: "Active presentation not found",
         duration: 3000,
       });
     }
     
     return {
       success: true,
-      message: "Переход к следующему слайду"
+      message: "Moving to next slide"
     };
   };
 
@@ -349,20 +349,20 @@ export const useToolsFunctions = () => {
     console.log('previousSlide called');
     if (globalPresentationControl?.previousSlide) {
       globalPresentationControl.previousSlide();
-      toast.success("Предыдущий слайд", {
-        description: "Переход к предыдущему слайду",
+      toast.success("Previous slide", {
+        description: "Moving to previous slide",
         duration: 2000,
       });
     } else {
-      toast.error("Презентация недоступна", {
-        description: "Активная презентация не найдена",
+      toast.error("Presentation unavailable", {
+        description: "Active presentation not found",
         duration: 3000,
       });
     }
     
     return {
       success: true,
-      message: "Переход к предыдущему слайду"
+      message: "Moving to previous slide"
     };
   };
 
@@ -371,20 +371,20 @@ export const useToolsFunctions = () => {
     
     if (globalPresentationControl?.goToSlide) {
       globalPresentationControl.goToSlide(slideNumber);
-      toast.success(`Слайд ${slideNumber}`, {
-        description: `Переход на слайд ${slideNumber}`,
+      toast.success(`Slide ${slideNumber}`, {
+        description: `Moving to slide ${slideNumber}`,
         duration: 2000,
       });
     } else {
-      toast.error("Презентация недоступна", {
-        description: "Активная презентация не найдена",
+      toast.error("Presentation unavailable", {
+        description: "Active presentation not found",
         duration: 3000,
       });
     }
     
     return {
       success: true,
-      message: `Переход на слайд ${slideNumber}`
+      message: `Moving to slide ${slideNumber}`
     };
   };
 
@@ -392,20 +392,20 @@ export const useToolsFunctions = () => {
     console.log('firstSlide called');
     if (globalPresentationControl?.goToFirst) {
       globalPresentationControl.goToFirst();
-      toast.success("Первый слайд", {
-        description: "Переход к первому слайду",
+      toast.success("First slide", {
+        description: "Moving to first slide",
         duration: 2000,
       });
     } else {
-      toast.error("Презентация недоступна", {
-        description: "Активная презентация не найдена",
+      toast.error("Presentation unavailable", {
+        description: "Active presentation not found",
         duration: 3000,
       });
     }
     
     return {
       success: true,
-      message: "Переход к первому слайду"
+      message: "Moving to first slide"
     };
   };
 
@@ -413,20 +413,20 @@ export const useToolsFunctions = () => {
     console.log('lastSlide called');
     if (globalPresentationControl?.goToLast) {
       globalPresentationControl.goToLast();
-      toast.success("Последний слайд", {
-        description: "Переход к последнему слайду",
+      toast.success("Last slide", {
+        description: "Moving to last slide",
         duration: 2000,
       });
     } else {
-      toast.error("Презентация недоступна", {
-        description: "Активная презентация не найдена",
+      toast.error("Presentation unavailable", {
+        description: "Active presentation not found",
         duration: 3000,
       });
     }
     
     return {
       success: true,
-      message: "Переход к последнему слайду"
+      message: "Moving to last slide"
     };
   };
 
@@ -434,20 +434,20 @@ export const useToolsFunctions = () => {
     console.log('togglePause called');
     if (globalPresentationControl?.togglePause) {
       globalPresentationControl.togglePause();
-      toast.success("Управление презентацией", {
-        description: "Переключено пауза/возобновление",
+      toast.success("Presentation control", {
+        description: "Pause/resume toggled",
         duration: 2000,
       });
     } else {
-      toast.error("Презентация недоступна", {
-        description: "Активная презентация не найдена",
+      toast.error("Presentation unavailable", {
+        description: "Active presentation not found",
         duration: 3000,
       });
     }
     
     return {
       success: true,
-      message: "Переключено управление презентацией"
+      message: "Presentation control toggled"
     };
   };
 
@@ -455,20 +455,20 @@ export const useToolsFunctions = () => {
     console.log('toggleFullscreen called');
     if (globalPresentationControl?.toggleFullscreen) {
       globalPresentationControl.toggleFullscreen();
-      toast.success("Полноэкранный режим", {
-        description: "Переключено полноэкранный режим",
+      toast.success("Fullscreen mode", {
+        description: "Fullscreen mode toggled",
         duration: 2000,
       });
     } else {
-      toast.error("Презентация недоступна", {
-        description: "Активная презентация не найдена",
+      toast.error("Presentation unavailable", {
+        description: "Active presentation not found",
         duration: 3000,
       });
     }
     
     return {
       success: true,
-      message: "Переключено полноэкранный режим"
+      message: "Fullscreen mode toggled"
     };
   };
 
@@ -476,37 +476,37 @@ export const useToolsFunctions = () => {
     console.log('exitPresentation called');
     if (globalPresentationControl?.exitPresentation) {
       globalPresentationControl.exitPresentation();
-      toast.success("Выход из презентации", {
-        description: "Выход из режима презентации",
+      toast.success("Exit presentation", {
+        description: "Exiting presentation mode",
         duration: 2000,
       });
     } else {
-      toast.error("Презентация недоступна", {
-        description: "Активная презентация не найдена",
+      toast.error("Presentation unavailable", {
+        description: "Active presentation not found",
         duration: 3000,
       });
     }
-    return { success: true, message: "Выход из презентации" };
+    return { success: true, message: "Exit presentation" };
   };
 
   const narrateSlide = () => {
     console.log('narrateSlide called');
     if (globalPresentationControl?.narrateSlide) {
-      // Получаем текущий слайд из глобального состояния и конвертируем в номер слайда
+      // Get current slide from global state and convert to slide number
       const currentSlideIndex = globalPresentationControl.currentSlide || 0;
-      const currentSlideNumber = currentSlideIndex + 1; // Конвертируем индекс в номер слайда
+      const currentSlideNumber = currentSlideIndex + 1; // Convert index to slide number
       globalPresentationControl.narrateSlide(currentSlideNumber);
-      toast.success("Озвучивание слайда", {
-        description: `Озвучивается слайд ${currentSlideNumber}`,
+      toast.success("Slide narration", {
+        description: `Narrating slide ${currentSlideNumber}`,
         duration: 2000,
       });
     } else {
-      toast.error("Презентация недоступна", {
-        description: "Активная презентация не найдена",
+      toast.error("Presentation unavailable", {
+        description: "Active presentation not found",
         duration: 3000,
       });
     }
-    return { success: true, message: "Озвучивание слайда" };
+    return { success: true, message: "Slide narration" };
   };
 
   return {

@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import OpenAI from 'openai'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+const CHAINOPERA_API_URL = 'https://agent.chainopera.ai/api/v1/run/a699e3d6-0590-40c9-b068-f606619391bb?stream=false'
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,34 +13,77 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (!process.env.OPENAI_API_KEY) {
+    if (!process.env.CHAINOPERA_API_KEY) {
       return NextResponse.json(
-        { error: 'OpenAI API key is not configured' },
+        { error: 'ChainOpera API key is not configured' },
         { status: 500 }
       )
     }
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: "You are a professional project analyst and technical writer. Generate detailed, well-structured content for project documentation. Use markdown formatting for better readability. Be specific, practical, and provide actionable insights."
-        },
-        {
-          role: "user",
-          content: prompt
+    const response = await fetch(CHAINOPERA_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.CHAINOPERA_API_KEY,
+      },
+      body: JSON.stringify({
+        input_value: prompt,
+        output_type: "chat",
+        input_type: "chat",
+        tweaks: {
+          "ChatInput-82uHT": {},
+          "Prompt-SNvjy": {},
+          "ChatOutput-7jNjU": {},
+          "OpenAIModel-v4gHN": {}
         }
-      ],
-      max_tokens: 2000,
-      temperature: 0.7,
+      })
     })
 
-    const content = completion.choices[0]?.message?.content
-
-    if (!content) {
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('ChainOpera API error:', response.status, errorText)
       return NextResponse.json(
-        { error: 'Failed to generate content' },
+        { error: `ChainOpera API error: ${response.status}` },
+        { status: response.status }
+      )
+    }
+
+    const data = await response.json()
+    
+    // Извлекаем текст из сложной структуры ответа ChainOpera
+    let content = ''
+    
+    try {
+      // Проверяем структуру ответа и извлекаем текст
+      if (data.outputs && data.outputs.length > 0) {
+        const firstOutput = data.outputs[0]
+        if (firstOutput.outputs && firstOutput.outputs.length > 0) {
+          const firstMessage = firstOutput.outputs[0]
+          if (firstMessage.results && firstMessage.results.message) {
+            content = firstMessage.results.message.text || firstMessage.results.message.data?.text || ''
+          } else if (firstMessage.outputs && firstMessage.outputs.message) {
+            content = firstMessage.outputs.message.text || firstMessage.outputs.message.message?.text || ''
+          }
+        }
+      }
+      
+      // Если не удалось извлечь из основной структуры, пробуем альтернативные пути
+      if (!content) {
+        content = data.output || data.response || data.content || ''
+      }
+      
+      // Если все еще нет контента, возвращаем ошибку
+      if (!content) {
+        console.error('Failed to extract content from ChainOpera response:', data)
+        return NextResponse.json(
+          { error: 'Failed to extract content from ChainOpera API response' },
+          { status: 500 }
+        )
+      }
+    } catch (extractError) {
+      console.error('Error extracting content from response:', extractError)
+      return NextResponse.json(
+        { error: 'Failed to parse ChainOpera API response' },
         { status: 500 }
       )
     }
@@ -51,7 +91,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ content })
 
   } catch (error) {
-    console.error('OpenAI API error:', error)
+    console.error('ChainOpera API error:', error)
     return NextResponse.json(
       { error: 'Failed to generate content' },
       { status: 500 }

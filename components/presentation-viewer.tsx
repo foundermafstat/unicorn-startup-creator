@@ -9,6 +9,8 @@ import { Separator } from "@/components/ui/separator"
 import { 
   ChevronLeft, 
   ChevronRight, 
+  ChevronUp,
+  ChevronDown,
   Play, 
   Pause, 
   Maximize, 
@@ -244,8 +246,8 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
     sendTextMessage(narrationText)
     
     // Показываем уведомление
-    toast.success("Озвучивание слайда", {
-      description: `Озвучивается: ${slide.title}`,
+    toast.success("Narrating slide", {
+      description: `Narrating: ${slide.title}`,
       duration: 3000,
     })
     
@@ -287,8 +289,8 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
     if (actualIndex >= 0 && actualIndex < totalSlides && swiperRef.current) {
       swiperRef.current.swiper.slideTo(actualIndex)
       setCurrentSlide(actualIndex)
-      toast.success(`Слайд ${slideIndex}`, {
-        description: `Переход на слайд ${slideIndex}`,
+      toast.success(`Slide ${slideIndex}`, {
+        description: `Moving to slide ${slideIndex}`,
         duration: 2000,
       })
     }
@@ -348,15 +350,15 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
       if (isPaused) {
         // Включаем автоплей
         setIsAutoplayActive(true)
-        toast.success("Автоплей включен", {
-          description: "Слайды будут переключаться после озвучивания",
+        toast.success("Autoplay enabled", {
+          description: "Slides will advance after narration",
           duration: 2000,
         })
       } else {
         // Отключаем автоплей
         setIsAutoplayActive(false)
-        toast.success("Автоплей отключен", {
-          description: "Слайды не будут переключаться автоматически",
+        toast.success("Autoplay disabled", {
+          description: "Slides will not advance automatically",
           duration: 2000,
         })
       }
@@ -379,8 +381,8 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
     setIsPaused(false)
     setAutoPlayEnabled(true)
     setIsAutoplayActive(true)
-    toast.success("Презентация сброшена", {
-      description: "Начинаем с первого слайда",
+    toast.success("Presentation reset", {
+      description: "Starting from first slide",
       duration: 2000,
     })
   }, [goToSlide])
@@ -472,10 +474,10 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
     <div 
       className="relative h-full w-full bg-black"
     >
-      {/* Debug info */}
-      <div className="absolute top-4 left-4 z-50 text-white text-sm bg-black/50 p-2 rounded">
+      {/* Debug info - HIDDEN */}
+      {/* <div className="absolute top-4 left-4 z-50 text-white text-sm bg-black/50 p-2 rounded">
         Presentation: {presentationId} | Slides: {totalSlides} | Current: {currentSlide + 1} | Mounted: {mounted ? 'Yes' : 'No'}
-      </div>
+      </div> */}
 
       {/* Swiper Container */}
       <div className="absolute inset-0">
@@ -545,8 +547,8 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
         <Progress value={progress} className="h-1 rounded-none" />
       </div>
 
-      {/* Voice Status */}
-      <div className="absolute top-4 right-4 z-20">
+      {/* Voice Status - HIDDEN */}
+      {/* <div className="absolute top-4 right-4 z-20">
         <div className="flex items-center gap-2">
           <Badge variant={isSessionActive ? "default" : "secondary"} className="bg-black/50 text-white">
             <Mic className="h-3 w-3 mr-1" />
@@ -555,7 +557,7 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
           {isAutoplayActive && (
             <Badge variant="outline" className="bg-black/50 text-white border-white/30">
               <Play className="h-3 w-3 mr-1" />
-              Автоплей
+              Autoplay
             </Badge>
           )}
           {isAutoNarrating && (
@@ -565,7 +567,7 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
             </Badge>
           )}
         </div>
-      </div>
+      </div> */}
 
       {/* Slide Navigation Dots */}
       {showNavigation && (
@@ -586,8 +588,8 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
         </div>
       )}
 
-      {/* Slide Thumbnails Navigation */}
-      <AnimatePresence>
+      {/* Slide Thumbnails Navigation - HIDDEN */}
+      {/* <AnimatePresence>
         {showControls && showNavigation && (
           <motion.div
             initial={{ opacity: 0, x: -100 }}
@@ -624,194 +626,154 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       {/* Pause Overlay */}
       {isPaused && (
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-30">
           <div className="text-center text-white">
             <Pause className="h-16 w-16 mx-auto mb-4 opacity-50" />
-            <p className="text-xl font-medium">Автоплей отключен</p>
-            <p className="text-sm opacity-75 mt-2">Нажмите кнопку или скажите 'включить автоплей' для продолжения</p>
+            <p className="text-xl font-medium">Autoplay Paused</p>
+            <p className="text-sm opacity-75 mt-2">Click button or say 'resume' to continue</p>
           </div>
         </div>
       )}
 
-      {/* Control Panel - Styled like BroadcastInterface */}
+      {/* Control Panel - Voice Interface Style */}
       <AnimatePresence>
         {showControls && showNavigation && (
           <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed bottom-4 left-4 z-50"
+            className={`fixed bottom-4 left-4 z-50 bg-card text-card-foreground rounded-xl border shadow-lg p-4 transition-all duration-300 ${
+              isMinimized ? 'w-64' : 'w-80'
+            }`}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.5 }}
           >
-            <Card className={`w-80 transition-all duration-300 ${isMinimized ? 'h-16' : ''}`}>
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <CardTitle className="text-lg">Presentation Control</CardTitle>
-                    <Badge 
-                      variant={isPaused ? "secondary" : "default"}
-                      className="text-xs"
-                    >
-                      {isPaused ? "Автоплей выкл" : "Автоплей вкл"}
-                    </Badge>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setIsMinimized(!isMinimized)}
-                      className="h-8 w-8 p-0"
-                    >
-                      {isMinimized ? <Settings className="h-4 w-4" /> : <X className="h-4 w-4" />}
-                    </Button>
-                  </div>
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-medium">Presentation Control</h3>
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full animate-pulse ${
+                  isPaused ? 'bg-yellow-500' : 'bg-green-500'
+                }`}></div>
+                <button
+                  onClick={() => setIsMinimized(!isMinimized)}
+                  className="h-6 w-6 p-0"
+                >
+                  {isMinimized ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                </button>
+              </div>
+            </div>
+            
+            {!isMinimized && (
+              <motion.div
+                className="space-y-4"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Progress Info */}
+                <div className="text-xs text-muted-foreground">
+                  {currentSlide + 1}/{totalSlides} • {Math.round(progress)}% complete
                 </div>
-                <CardDescription>
-                  Slide {currentSlide + 1} of {totalSlides} • {Math.round(progress)}% complete
-                </CardDescription>
-              </CardHeader>
 
-              <AnimatePresence>
-                {!isMinimized && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                {/* Navigation Controls */}
+                <div className="grid grid-cols-4 gap-2">
+                  <Button
+                    onClick={goToFirst}
+                    disabled={currentSlide === 0}
+                    variant="outline"
+                    size="sm"
+                    className="h-8"
                   >
-                    <CardContent className="space-y-4">
-                      {/* Progress Bar */}
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between text-sm">
-                          <span>Progress</span>
-                          <span className="text-muted-foreground">
-                            {Math.round(progress)}%
-                          </span>
-                        </div>
-                        <Progress value={progress} className="h-2" />
-                      </div>
+                    <SkipBack className="h-4 w-4" />
+                  </Button>
 
-                      <Separator />
+                  <Button
+                    onClick={previousSlide}
+                    disabled={currentSlide === 0}
+                    variant="outline"
+                    size="sm"
+                    className="h-8"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
 
-                      {/* Navigation Buttons */}
-                      <div className="grid grid-cols-2 gap-2">
-                        <Button
-                          onClick={goToFirst}
-                          disabled={currentSlide === 0}
-                          variant="outline"
-                          className="flex items-center gap-2"
-                        >
-                          <SkipBack className="h-4 w-4" />
-                          First
-                        </Button>
+                  <Button
+                    onClick={nextSlide}
+                    disabled={currentSlide === totalSlides - 1}
+                    variant="outline"
+                    size="sm"
+                    className="h-8"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
 
-                        <Button
-                          onClick={goToLast}
-                          disabled={currentSlide === totalSlides - 1}
-                          variant="outline"
-                          className="flex items-center gap-2"
-                        >
-                          <SkipForward className="h-4 w-4" />
-                          Last
-                        </Button>
-                      </div>
+                  <Button
+                    onClick={goToLast}
+                    disabled={currentSlide === totalSlides - 1}
+                    variant="outline"
+                    size="sm"
+                    className="h-8"
+                  >
+                    <SkipForward className="h-4 w-4" />
+                  </Button>
+                </div>
 
-                      <div className="grid grid-cols-2 gap-2">
-                        <Button
-                          onClick={previousSlide}
-                          disabled={currentSlide === 0}
-                          variant="outline"
-                          className="flex items-center gap-2"
-                        >
-                          <ChevronLeft className="h-4 w-4" />
-                          Previous
-                        </Button>
+                {/* Control Buttons */}
+                <div className="grid grid-cols-3 gap-2">
+                  <Button
+                    onClick={togglePause}
+                    variant="outline"
+                    size="sm"
+                    className="h-8"
+                  >
+                    {isPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+                  </Button>
 
-                        <Button
-                          onClick={nextSlide}
-                          disabled={currentSlide === totalSlides - 1}
-                          variant="outline"
-                          className="flex items-center gap-2"
-                        >
-                          <ChevronRight className="h-4 w-4" />
-                          Next
-                        </Button>
-                      </div>
+                  <Button
+                    onClick={toggleFullscreen}
+                    variant="outline"
+                    size="sm"
+                    className="h-8"
+                  >
+                    {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+                  </Button>
 
-                      {/* Control Buttons */}
-                      <div className="grid grid-cols-2 gap-2">
-                        <Button
-                          onClick={togglePause}
-                          variant="outline"
-                          className="flex items-center gap-2"
-                        >
-                          {isPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
-                          {isPaused ? "Включить автоплей" : "Отключить автоплей"}
-                        </Button>
+                  <Button
+                    onClick={() => narrateSlide(currentSlide + 1)}
+                    disabled={!isSessionActive || isAutoNarrating}
+                    variant="outline"
+                    size="sm"
+                    className="h-8"
+                  >
+                    {isAutoNarrating ? <VolumeX className="h-4 w-4 animate-pulse" /> : <Volume2 className="h-4 w-4" />}
+                  </Button>
+                </div>
 
-                        <Button
-                          onClick={toggleFullscreen}
-                          variant="outline"
-                          className="flex items-center gap-2"
-                        >
-                          {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
-                          {isFullscreen ? "Exit FS" : "Fullscreen"}
-                        </Button>
-                      </div>
+                {/* Reset and Exit */}
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    onClick={handleReset}
+                    variant="ghost"
+                    size="sm"
+                    className="h-8"
+                  >
+                    Reset
+                  </Button>
 
-                      {/* Narration Button */}
-                      <div className="grid grid-cols-1 gap-2">
-                        <Button
-                          onClick={() => narrateSlide(currentSlide + 1)}
-                          disabled={!isSessionActive || isAutoNarrating}
-                          variant="outline"
-                          className="flex items-center gap-2"
-                        >
-                          {isAutoNarrating ? (
-                            <>
-                              <VolumeX className="h-4 w-4 animate-pulse" />
-                              Озвучивается...
-                            </>
-                          ) : (
-                            <>
-                              <Volume2 className="h-4 w-4" />
-                              Озвучить слайд
-                            </>
-                          )}
-                        </Button>
-                      </div>
-
-                      {/* Reset and Exit Buttons */}
-                      <div className="grid grid-cols-2 gap-2">
-                        <Button
-                          onClick={handleReset}
-                          variant="ghost"
-                          size="sm"
-                          className="flex items-center gap-2"
-                        >
-                          <RotateCcw className="h-4 w-4" />
-                          Reset
-                        </Button>
-
-                        <Button
-                          onClick={exitPresentation}
-                          variant="destructive"
-                          size="sm"
-                          className="flex items-center gap-2"
-                        >
-                          <X className="h-4 w-4" />
-                          Exit
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Card>
+                  <Button
+                    onClick={exitPresentation}
+                    variant="destructive"
+                    size="sm"
+                    className="h-8"
+                  >
+                    Exit
+                  </Button>
+                </div>
+              </motion.div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
