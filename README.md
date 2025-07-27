@@ -1,10 +1,16 @@
-# Unicorn Startup Creator - OpenAI Realtime API Next.js Application
+# Unicorn Startup Creator - ChainOpera AI Application
 
-A cutting-edge AI-powered application that leverages OpenAI's Realtime API with WebRTC technology to create an interactive voice-controlled startup creation and presentation platform.
+An autonomous AI agent that creates and pitches billion-dollar startup ideas. It analyzes markets, generates decks, and delivers live investor presentations — powered by ChainOpera AI for custom logic endpoints.
 
 ## 🚀 Overview
 
-This project demonstrates the integration of OpenAI's latest Realtime API with WebRTC for real-time voice interactions, enabling users to create, manage, and present startup ideas through natural voice commands and AI assistance.
+Unicorn Startup Creator & Presenter is a next-generation AI agent designed to ideate, validate, and pitch billion-dollar startup ideas autonomously. It leverages a sophisticated multi-agent framework and integrates with real-time data sources to identify untapped market opportunities, construct scalable business models, and generate investor-ready materials — all within minutes.
+
+At the core of the system lies ChainOpera AI — a customizable logic execution layer that enables the agent to outsource complex generation tasks to custom-built endpoints. These endpoints handle everything from idea synthesis to narrative creation, ensuring modularity, scalability, and high customization for each startup archetype.
+
+The system doesn’t stop at static deliverables. It includes a voice-enabled AI avatar that presents the pitch in real time, responds to simulated investor questions, and adapts based on feedback.
+
+From ideation to investor Q&A — it’s your autonomous startup team in one agent.
 
 ## 🏗️ Project Structure
 
