@@ -19,9 +19,9 @@ export const VoiceNavigationDemo: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.5 }}
-      className="w-full max-w-2xl"
+      className="w-full"
     >
-      <Card>
+      <Card className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-2xl">
         <CardHeader>
                      <CardTitle className="flex items-center gap-2">
              <Navigation className="h-5 w-5" />

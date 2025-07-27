@@ -34,6 +34,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geist.variable} ${geistMono.variable} min-h-dvh bg-background font-sans antialiased geist_e531dabc-module__QGiZLq`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"
@@ -45,9 +46,9 @@ export default function RootLayout({
             <BroadcastProvider>
               <PresentationProvider>
                 <PresentationControlProvider>
-                  <div className="relative flex max-h-full flex-col bg-background items-center">
+                  <div className="relative flex flex-col bg-background">
                     <Header />
-                    <main className="flex flex-1 justify-center items-start">
+                    <main className="flex-1">
                       {children}
                     </main>
                     <BroadcastInterface />

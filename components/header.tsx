@@ -62,111 +62,138 @@ export function Header() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4 }}
       className="w-full sticky top-0 z-50 border-b bg-background"
+      suppressHydrationWarning
     >
-      <div className=" mx-auto px-4 h-12 flex items-center justify-between gap-2">
-        <MobileNav />
-        <motion.nav
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="max-md:hidden flex items-center gap-6"
-        >
-          <Link href="/" className="flex gap-3 items-center">
-            <motion.h1 
-              className="text-lg font-medium tracking-tighter flex gap-2 items-center"
-              whileHover={{ scale: 1.02 }}
+            <div className="mx-auto px-4 h-12 flex items-center justify-between gap-2">
+        {mounted ? (
+          <>
+            <MobileNav />
+            <motion.nav
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="max-md:hidden flex items-center gap-6"
             >
-              {mounted && (
-                <Image
-                  src={theme === 'dark' ? '/images/unicorn-white.png' : '/images/unicorn-black.png'}
-                  alt="Logo"
-                  width={24}
-                  height={24}
-                  className="w-6 h-6"
-                />
+              <Link href="/" className="flex gap-3 items-center">
+                <motion.h1 
+                  className="text-lg font-medium tracking-tighter flex gap-2 items-center"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <Image
+                    src={theme === 'dark' ? '/images/unicorn-white.png' : '/images/unicorn-black.png'}
+                    alt="Logo"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                  {t('header.logo')}
+                </motion.h1>
+               
+              </Link>
+              
+              <div className="flex items-center gap-4">
+                <Link href="/about">
+                  <Button variant="ghost" size="sm">
+                    About
+                  </Button>
+                </Link>
+                <Link href="/features">
+                  <Button variant="ghost" size="sm">
+                    Features
+                  </Button>
+                </Link>
+                <Link href="/presentations">
+                  <Button variant="ghost" size="sm">
+                    Presentations
+                  </Button>
+                </Link>
+                <Link href="/project-generator" className="text-sm font-medium transition-colors hover:text-primary">
+                  {t('header.projectGenerator')}
+                </Link>
+                <Link href="/settings">
+                  <Button variant="ghost" size="sm">
+                    Settings
+                  </Button>
+                </Link>
+              </div>
+            </motion.nav>
+          </>
+        ) : (
+          <>
+            <div className="w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded" />
+            <div className="max-md:hidden flex items-center gap-6">
+              <div className="flex gap-3 items-center">
+                <div className="w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded" />
+                <div className="text-lg font-medium tracking-tighter">Loading...</div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-8 bg-gray-300 dark:bg-gray-600 rounded" />
+                <div className="w-16 h-8 bg-gray-300 dark:bg-gray-600 rounded" />
+                <div className="w-16 h-8 bg-gray-300 dark:bg-gray-600 rounded" />
+                <div className="w-16 h-8 bg-gray-300 dark:bg-gray-600 rounded" />
+                <div className="w-16 h-8 bg-gray-300 dark:bg-gray-600 rounded" />
+              </div>
+            </div>
+          </>
+        )}
+
+        {mounted ? (
+          <div className="flex items-center gap-2">
+            {/* Broadcast Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleBroadcast}
+              className="flex items-center gap-2"
+            >
+              {showBroadcast ? (
+                <>
+                  <Mic className="h-4 w-4" />
+                  <Eye className="h-4 w-4" />
+                </>
+              ) : (
+                <>
+                  <MicOff className="h-4 w-4" />
+                  <EyeOff className="h-4 w-4" />
+                </>
               )}
-              {t('header.logo')}
-            </motion.h1>
-           
-          </Link>
-          
-          <div className="flex items-center gap-4">
-            <Link href="/about">
-              <Button variant="ghost" size="sm">
-                About
-              </Button>
-            </Link>
-            <Link href="/features">
-              <Button variant="ghost" size="sm">
-                Features
-              </Button>
-            </Link>
-            <Link href="/presentations">
-              <Button variant="ghost" size="sm">
-                Presentations
-              </Button>
-            </Link>
-            <Link href="/project-generator" className="text-sm font-medium transition-colors hover:text-primary">
-              {t('header.projectGenerator')}
-            </Link>
-            <Link href="/settings">
-              <Button variant="ghost" size="sm">
-                Settings
-              </Button>
-            </Link>
+            </Button>
+
+            {/* Navigation Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleNavigation}
+              className="flex items-center gap-2"
+            >
+              {showNavigation ? (
+                <Navigation className="h-4 w-4" />
+              ) : (
+                <NavigationOff className="h-4 w-4" />
+              )}
+            </Button>
+
+            <LanguageSwitcher />
+
+            {/* Theme Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleTheme}
+              className="flex items-center gap-2"
+              title={`Current theme: ${theme || 'system'}`}
+            >
+              {getThemeIcon()}
+            </Button>
           </div>
-        </motion.nav>
-
-        <div className="flex items-center gap-2">
-          
-
-          {/* Broadcast Toggle */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={toggleBroadcast}
-            className="flex items-center gap-2"
-          >
-            {showBroadcast ? (
-              <>
-                <Mic className="h-4 w-4" />
-                <Eye className="h-4 w-4" />
-              </>
-            ) : (
-              <>
-                <MicOff className="h-4 w-4" />
-                <EyeOff className="h-4 w-4" />
-              </>
-            )}
-          </Button>
-
-          {/* Navigation Toggle */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={toggleNavigation}
-            className="flex items-center gap-2"
-          >
-            {showNavigation ? (
-              <Navigation className="h-4 w-4" />
-            ) : (
-              <NavigationOff className="h-4 w-4" />
-            )}
-          </Button>
-
-          <LanguageSwitcher />
-
-          {/* Theme Toggle */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={toggleTheme}
-            className="flex items-center gap-2"
-            title={mounted ? `Current theme: ${theme || 'system'}` : "Theme"}
-          >
-            {getThemeIcon()}
-          </Button>
-        </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded" />
+            <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded" />
+            <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded" />
+            <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded" />
+          </div>
+        )}
       </div>
     </motion.header>
   );

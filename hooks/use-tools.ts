@@ -7,6 +7,7 @@ import { animate as framerAnimate } from "framer-motion"
 import { useTranslations } from "@/components/translations-context"
 import FirecrawlApp, { ScrapeResponse } from '@mendable/firecrawl-js';
 import { useRouter } from "next/navigation"
+import { projectInfo, voiceResponses } from "@/lib/project-info"
 
 // Global navigation function to avoid React hook issues in WebRTC context
 let globalRouter: any = null;
@@ -261,10 +262,10 @@ export const useToolsFunctions = () => {
       toast.error("Page not found", {
         description: `Page "${page}" does not exist. Available pages: ${availablePages}.`,
       });
-              return {
-          success: false,
+      return {
+        success: false,
           message: `Page "${page}" not found. Available pages: ${availablePages}.`
-        };
+      };
     }
 
     try {
@@ -509,6 +510,174 @@ export const useToolsFunctions = () => {
     return { success: true, message: "Slide narration" };
   };
 
+  const extendSlideTime = () => {
+    console.log('extendSlideTime called');
+    if (globalPresentationControl?.extendSlideTime) {
+      globalPresentationControl.extendSlideTime();
+      toast.success("Extended slide time", {
+        description: "Added 10 more seconds to current slide",
+        duration: 2000,
+      });
+    } else {
+      toast.error("Presentation unavailable", {
+        description: "Active presentation not found",
+        duration: 3000,
+      });
+    }
+    return { success: true, message: "Extended slide time by 10 seconds" };
+  };
+
+  // Project information tools
+  const getProjectInfo = ({ query }: { query: string }) => {
+    console.log('getProjectInfo called with:', query);
+    
+    const lowerQuery = query.toLowerCase();
+    
+    // Map common questions to responses
+    if (lowerQuery.includes('what is this') || lowerQuery.includes('what is the project') || lowerQuery.includes('tell me about')) {
+      return {
+        success: true,
+        message: voiceResponses.whatIsThis
+      };
+    }
+    
+    if (lowerQuery.includes('who built') || lowerQuery.includes('developer') || lowerQuery.includes('creator') || lowerQuery.includes('author')) {
+      return {
+        success: true,
+        message: voiceResponses.whoBuiltIt
+      };
+    }
+    
+    if (lowerQuery.includes('how does it work') || lowerQuery.includes('how it works') || lowerQuery.includes('process')) {
+      return {
+        success: true,
+        message: voiceResponses.howItWorks
+      };
+    }
+    
+    if (lowerQuery.includes('problem') || lowerQuery.includes('challenge') || lowerQuery.includes('issue')) {
+      return {
+        success: true,
+        message: voiceResponses.whatProblems
+      };
+    }
+    
+    if (lowerQuery.includes('feature') || lowerQuery.includes('capability') || lowerQuery.includes('what can it do')) {
+      return {
+        success: true,
+        message: voiceResponses.keyFeatures
+      };
+    }
+    
+    if (lowerQuery.includes('technology') || lowerQuery.includes('tech stack') || lowerQuery.includes('built with')) {
+      return {
+        success: true,
+        message: voiceResponses.technology
+      };
+    }
+    
+    if (lowerQuery.includes('chainopera') || lowerQuery.includes('chain opera')) {
+      return {
+        success: true,
+        message: voiceResponses.chainOpera
+      };
+    }
+    
+    if (lowerQuery.includes('use case') || lowerQuery.includes('who uses') || lowerQuery.includes('target audience')) {
+      return {
+        success: true,
+        message: voiceResponses.useCases
+      };
+    }
+    
+    if (lowerQuery.includes('architecture') || lowerQuery.includes('design') || lowerQuery.includes('structure')) {
+      return {
+        success: true,
+        message: voiceResponses.architecture
+      };
+    }
+    
+    if (lowerQuery.includes('benefit') || lowerQuery.includes('advantage') || lowerQuery.includes('why use')) {
+      return {
+        success: true,
+        message: voiceResponses.benefits
+      };
+    }
+    
+    // Default response for unknown queries
+    return {
+      success: true,
+      message: `I can help you learn about the ${projectInfo.name}. You can ask me about what this project is, who built it, how it works, what problems it solves, its features, technology stack, ChainOpera AI integration, use cases, architecture, or benefits. What would you like to know?`
+    };
+  };
+
+  const getDetailedProjectInfo = ({ category }: { category: string }) => {
+    console.log('getDetailedProjectInfo called with:', category);
+    
+    const lowerCategory = category.toLowerCase();
+    
+    if (lowerCategory.includes('developer') || lowerCategory.includes('creator')) {
+      const dev = projectInfo.developer;
+      return {
+        success: true,
+        message: `${dev.name} (${dev.alias}) is a ${dev.role} with expertise in ${dev.expertise.join(', ')}. His design philosophy includes ${dev.philosophy.distributed}, ${dev.philosophy.apiFirst}, and ${dev.philosophy.developerFocused}.`
+      };
+    }
+    
+    if (lowerCategory.includes('chainopera') || lowerCategory.includes('chain opera')) {
+      const chain = projectInfo.chainOperaAI;
+      return {
+        success: true,
+        message: `${chain.description} It provides ${chain.capabilities.join(', ')}. ${chain.design} Available endpoints include ${chain.endpoints.join(', ')}. This makes the system ${chain.benefits.join(', ')}.`
+      };
+    }
+    
+    if (lowerCategory.includes('problem') || lowerCategory.includes('challenge')) {
+      const prob = projectInfo.problem;
+      return {
+        success: true,
+        message: `${prob.title}: ${prob.description} ${prob.challenges.join(', ')}. ${prob.consequences}`
+      };
+    }
+    
+    if (lowerCategory.includes('solution') || lowerCategory.includes('capability')) {
+      const sol = projectInfo.solution;
+      return {
+        success: true,
+        message: `${sol.title}: ${sol.description} ${sol.capabilities.join(', ')}. ${sol.summary}`
+      };
+    }
+    
+    if (lowerCategory.includes('technology') || lowerCategory.includes('tech')) {
+      const tech = projectInfo.technology;
+      return {
+        success: true,
+        message: `Core technologies: ${tech.core.join(', ')}. AI components: ${tech.ai.join(', ')}. Architecture: ${tech.architecture.join(', ')}.`
+      };
+    }
+    
+    if (lowerCategory.includes('feature')) {
+      const features = projectInfo.features;
+      return {
+        success: true,
+        message: `Key features include: ${Object.values(features).join(', ')}.`
+      };
+    }
+    
+    if (lowerCategory.includes('use case') || lowerCategory.includes('audience')) {
+      const useCases = projectInfo.useCases;
+      return {
+        success: true,
+        message: `The system serves: ${Object.values(useCases).join(', ')}. Available on ${projectInfo.availability.platforms.join(', ')}.`
+      };
+    }
+    
+    return {
+      success: true,
+      message: `I can provide detailed information about: developer/creator, ChainOpera AI, problems/challenges, solution/capabilities, technology/tech stack, features, or use cases/audience. What specific category would you like to know more about?`
+    };
+  };
+
   return {
     timeFunction,
     backgroundFunction,
@@ -525,6 +694,9 @@ export const useToolsFunctions = () => {
     togglePause,
     toggleFullscreen,
     exitPresentation,
-    narrateSlide
+    narrateSlide,
+    extendSlideTime,
+    getProjectInfo,
+    getDetailedProjectInfo
   };
 }

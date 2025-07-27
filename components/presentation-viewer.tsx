@@ -52,139 +52,85 @@ interface Presentation {
 
 // Sample presentations data
 const presentationsData: Record<string, Presentation> = {
-  demo: {
-    id: "demo",
-    title: "Demo Presentation",
+  "unicorn-startup-creator": {
+    id: "unicorn-startup-creator",
+    title: "Unicorn Startup Creator & Presenter",
     slides: [
       {
         id: 1,
-        title: "Welcome to Voice-Controlled Presentations",
-        content: "This presentation demonstrates the power of voice commands for controlling slides. Try saying 'next slide' or 'previous slide'.",
+        title: "Unicorn Startup Creator & Presenter",
+        content: "The AI Agent That Creates and Pitches the Next Generation of Billion-Dollar Startups. This cutting-edge application leverages OpenAI's Realtime API with WebRTC technology to create an interactive voice-controlled startup creation and presentation platform.",
         backgroundColor: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
       },
       {
         id: 2,
-        title: "Voice Commands",
-        content: "You can use voice commands like:\n• 'next slide' or 'forward'\n• 'previous slide' or 'back'\n• 'go to slide 3'\n• 'first slide' or 'last slide'",
+        title: "The Problem We Solve",
+        content: "Creating successful startups is hard. Founders often misread timing or market dynamics, struggle to pitch with clarity or confidence, and lack access to strategic or creative talent. This leads to wasted time, capital, and energy.",
         backgroundColor: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
       },
       {
         id: 3,
-        title: "Interactive Features",
-        content: "The presentation includes:\n• Full-screen mode\n• Progress tracking\n• Voice control\n• Smooth animations",
+        title: "Our Revolutionary Solution",
+        content: "Unicorn Startup Creator changes the game by combining real-time data, autonomous agents, and ChainOpera AI's logic endpoints. It surfaces valuable startup opportunities, validates concepts against real market signals, and generates complete investor-grade pitch materials.",
         backgroundColor: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
       },
       {
         id: 4,
-        title: "Real-time Control",
-        content: "Control the presentation in real-time using your voice. The system recognizes natural language commands and responds instantly.",
+        title: "Meet the Developer",
+        content: "The system was architected and implemented by Ihor Sokolov, also known as vibecoder. He's a full-stack web developer with extensive experience in AI integration, real-time systems, and Web3 product development.",
         backgroundColor: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
       },
       {
         id: 5,
-        title: "Thank You",
-        content: "Thank you for experiencing voice-controlled presentations. This technology makes presentations more interactive and accessible.",
-        backgroundColor: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
-      }
-    ]
-  },
-  features: {
-    id: "features",
-    title: "Features Overview",
-    slides: [
-      {
-        id: 1,
-        title: "Voice Interface",
-        content: "Advanced voice recognition system that understands natural language commands for seamless presentation control.",
-        backgroundColor: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-      },
-      {
-        id: 2,
-        title: "Real-time Communication",
-        content: "WebRTC-powered audio streaming for instant voice command processing and response.",
-        backgroundColor: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-      },
-      {
-        id: 3,
-        title: "AI-Powered Tools",
-        content: "Integration with OpenAI's API for intelligent command interpretation and natural language processing.",
-        backgroundColor: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-      },
-      {
-        id: 4,
-        title: "Cross-Platform Support",
-        content: "Works seamlessly across different browsers and devices with responsive design and adaptive layouts.",
-        backgroundColor: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
-      },
-      {
-        id: 5,
-        title: "Customizable Interface",
-        content: "Flexible UI components and themes that can be customized to match your brand and presentation style.",
+        title: "ChainOpera AI - The Key Enabler",
+        content: "ChainOpera AI is our flexible execution layer for high-context logic generation. It handles semantic business model synthesis, founder-narrative generation, investor-focused storytelling, and multi-modal component generation through dynamically registered endpoints.",
         backgroundColor: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
       },
       {
         id: 6,
-        title: "Analytics & Insights",
-        content: "Track presentation performance, audience engagement, and voice command usage patterns.",
+        title: "Real-Time Voice Interaction",
+        content: "Our application demonstrates the integration of OpenAI's latest Realtime API with WebRTC for real-time voice interactions. It enables users to create, manage, and present startup ideas through natural voice commands and AI assistance with sub-second response times.",
         backgroundColor: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
       },
       {
         id: 7,
-        title: "Accessibility Features",
-        content: "Built-in accessibility features including voice navigation, screen reader support, and keyboard shortcuts.",
+        title: "AI-Powered Tools & Features",
+        content: "The system includes comprehensive AI tools triggered via voice commands: navigation tools, presentation controls, utility functions, and project information tools. Key features include autonomous startup generation, complete pitch creation, market validation, and avatar presentations.",
         backgroundColor: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
       },
       {
         id: 8,
-        title: "Future Roadmap",
-        content: "Planned features include:\n• Multi-language support\n• Gesture recognition\n• AR/VR integration\n• Advanced analytics",
+        title: "Technology Stack",
+        content: "Built with Next.js 15, React 19, TypeScript, and Tailwind CSS. The AI components include GPT-4o Realtime for voice interactions, Whisper-1 for speech recognition, and a modular micro-service architecture with dynamic endpoint registration.",
         backgroundColor: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
-      }
-    ]
-  },
-  tutorial: {
-    id: "tutorial",
-    title: "Voice Commands Tutorial",
-    slides: [
+      },
       {
-        id: 1,
-        title: "Getting Started",
-        content: "Welcome to the voice commands tutorial. Learn how to control presentations using natural voice commands.",
+        id: 9,
+        title: "Target Audience & Use Cases",
+        content: "The system serves founders validating ideas, startup incubators and accelerators, VC analysts for deal flow analysis, entrepreneurs seeking strategic guidance, and investors evaluating startup opportunities. It's available via API, CLI, and visual UI.",
+        backgroundColor: "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)"
+      },
+      {
+        id: 10,
+        title: "Architecture & Design Philosophy",
+        content: "The architecture uses a modular, API-first design with distributed agent orchestration. Each generation request routes to specialized ChainOpera endpoints, allowing independent scaling and domain-specific reasoning chains for diverse startup contexts.",
+        backgroundColor: "linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)"
+      },
+      {
+        id: 11,
+        title: "Key Benefits & Impact",
+        content: "The main benefits are: it surfaces valuable startup opportunities, validates concepts against real market signals, generates investor-grade materials, delivers pitches via avatars, and iterates through feedback loops. It's essentially your co-founder, strategist, pitch coach, and creative director all in one.",
+        backgroundColor: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)"
+      },
+      {
+        id: 12,
+        title: "Future Vision & Roadmap",
+        content: "Our development roadmap includes advanced workflow orchestration, enhanced AI capabilities, external API integration, and enterprise features. We're building not just a static product, but a developer-facing AI framework that others can extend and embed into their workflows.",
         backgroundColor: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-      },
-      {
-        id: 2,
-        title: "Basic Navigation",
-        content: "Basic navigation commands:\n• 'next slide' - go to next slide\n• 'previous slide' - go to previous slide\n• 'forward' - same as next slide\n• 'back' - same as previous slide",
-        backgroundColor: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-      },
-      {
-        id: 3,
-        title: "Advanced Navigation",
-        content: "Advanced navigation commands:\n• 'go to slide 3' - jump to specific slide\n• 'first slide' - go to beginning\n• 'last slide' - go to end\n• 'slide 5' - shorthand for go to slide",
-        backgroundColor: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-      },
-      {
-        id: 4,
-        title: "Presentation Control",
-        content: "Presentation control commands:\n• 'start presentation' - begin presentation\n• 'pause' - pause presentation\n• 'resume' - continue presentation\n• 'exit presentation' - end presentation",
-        backgroundColor: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
-      },
-      {
-        id: 5,
-        title: "Display Controls",
-        content: "Display control commands:\n• 'fullscreen' - enter fullscreen mode\n• 'exit fullscreen' - leave fullscreen\n• 'hide controls' - hide interface\n• 'show controls' - show interface",
-        backgroundColor: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
-      },
-      {
-        id: 6,
-        title: "Practice Time",
-        content: "Now try these commands:\n• Say 'next slide' to continue\n• Say 'go to slide 1' to restart\n• Say 'fullscreen' to enter fullscreen\n• Say 'exit fullscreen' to return",
-        backgroundColor: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
       }
     ]
   }
-}
+};
 
 interface PresentationViewerProps {
   presentationId: string
@@ -251,7 +197,12 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
       duration: 3000,
     })
     
-    // Сбрасываем состояние через 5 секунд и переходим к следующему слайду
+    // Рассчитываем время ожидания на основе длины текста (примерно 150 слов в минуту)
+    const wordCount = narrationText.split(' ').length
+    const estimatedReadingTime = Math.max(wordCount * 0.4, 10) // Минимум 10 секунд
+    const totalWaitTime = estimatedReadingTime + 3000 // +3 секунды на паузу
+    
+    // Сбрасываем состояние через рассчитанное время и переходим к следующему слайду
     setTimeout(() => {
       setIsAutoNarrating(false)
       
@@ -259,9 +210,9 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
       if (autoPlayEnabled && slideIndex < totalSlides - 1 && swiperRef.current) {
         setTimeout(() => {
           swiperRef.current.swiper.slideNext()
-        }, 1000) // Небольшая пауза после озвучивания
+        }, 2000) // Увеличенная пауза после озвучивания
       }
-    }, 5000)
+    }, totalWaitTime * 1000)
   }, [isSessionActive, presentation.slides, sendTextMessage, totalSlides, autoPlayEnabled])
 
   // Auto-hide controls after 3 seconds of inactivity
@@ -387,6 +338,20 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
     })
   }, [goToSlide])
 
+  const extendSlideTime = useCallback(() => {
+    if (isAutoNarrating) {
+      // Продлеваем время на текущем слайде на 10 секунд
+      setIsAutoNarrating(false)
+      setTimeout(() => {
+        setIsAutoNarrating(true)
+        toast.success("Extended slide time", {
+          description: "Added 10 more seconds to current slide",
+          duration: 2000,
+        })
+      }, 100)
+    }
+  }, [isAutoNarrating])
+
   // Register control functions with the context
   useEffect(() => {
     if (mounted) {
@@ -401,10 +366,11 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
         exitPresentation,
         handleReset,
         narrateSlide,
+        extendSlideTime,
         currentSlide // Добавляем текущий индекс слайда
       })
     }
-  }, [mounted, setControlFunctions, nextSlide, previousSlide, goToSlide, goToFirst, goToLast, togglePause, toggleFullscreen, exitPresentation, handleReset, narrateSlide, currentSlide])
+  }, [mounted, setControlFunctions, nextSlide, previousSlide, goToSlide, goToFirst, goToLast, togglePause, toggleFullscreen, exitPresentation, handleReset, narrateSlide, extendSlideTime, currentSlide])
 
   // Keyboard navigation
   useEffect(() => {
@@ -722,7 +688,7 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
                 </div>
 
                 {/* Control Buttons */}
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   <Button
                     onClick={togglePause}
                     variant="outline"
@@ -740,7 +706,10 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
                   >
                     {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
                   </Button>
+                </div>
 
+                {/* Voice and Time Control */}
+                <div className="grid grid-cols-2 gap-2">
                   <Button
                     onClick={() => narrateSlide(currentSlide + 1)}
                     disabled={!isSessionActive || isAutoNarrating}
@@ -749,6 +718,17 @@ export function PresentationViewer({ presentationId }: PresentationViewerProps) 
                     className="h-8"
                   >
                     {isAutoNarrating ? <VolumeX className="h-4 w-4 animate-pulse" /> : <Volume2 className="h-4 w-4" />}
+                  </Button>
+
+                  <Button
+                    onClick={extendSlideTime}
+                    disabled={!isAutoNarrating}
+                    variant="outline"
+                    size="sm"
+                    className="h-8"
+                    title="Add 10 more seconds to current slide"
+                  >
+                    <RotateCcw className="h-4 w-4" />
                   </Button>
                 </div>
 

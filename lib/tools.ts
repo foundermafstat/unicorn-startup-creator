@@ -106,6 +106,24 @@ const toolDefinitions = {
     exitPresentation: {
         description: 'Exits the current presentation mode',
         parameters: {}
+    },
+    getProjectInfo: {
+        description: 'Get information about the project based on user query',
+        parameters: {
+            query: {
+                type: 'string',
+                description: 'The user question or query about the project'
+            }
+        }
+    },
+    getDetailedProjectInfo: {
+        description: 'Get detailed information about specific project categories',
+        parameters: {
+            category: {
+                type: 'string',
+                description: 'The category to get detailed information about (e.g., "developer", "chainopera", "technology", "features")'
+            }
+        }
     }
 } as const;
 

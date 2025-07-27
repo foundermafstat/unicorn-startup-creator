@@ -51,11 +51,19 @@ export function ToolsEducation() {
       name: "Presentation Control",
       description: "Control presentations using voice commands",
     },
+    {
+      name: "Project Information",
+      description: "Get comprehensive information about the Unicorn Startup Creator project",
+    },
+    {
+      name: "Detailed Project Info",
+      description: "Get detailed information about specific project categories (developer, technology, features, etc.)",
+    }
   ] as const;
 
   return (
-    <div className="w-full max-w-lg mt-4">
-      <Accordion type="single" collapsible>
+    <div className="w-full mt-4">
+      <Accordion type="single" collapsible className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-lg border-0 shadow-2xl">
         <AccordionItem value="tools">
           <AccordionTrigger>{t('tools.availableTools.title')}</AccordionTrigger>
           <AccordionContent>

@@ -63,7 +63,10 @@ export const BroadcastProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         lastSlide: 'lastSlide',
         togglePause: 'togglePause',
         toggleFullscreen: 'toggleFullscreen',
-        exitPresentation: 'exitPresentation'
+        exitPresentation: 'exitPresentation',
+        narrateSlide: 'narrateSlide',
+        getProjectInfo: 'getProjectInfo',
+        getDetailedProjectInfo: 'getDetailedProjectInfo'
       };
       
       console.log('Registering function:', name, 'as', functionNames[name], 'function type:', typeof func);

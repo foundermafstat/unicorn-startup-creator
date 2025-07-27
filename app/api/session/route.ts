@@ -16,7 +16,7 @@ export async function POST() {
                 model: "gpt-4o-realtime-preview-2024-12-17",
                 voice: "alloy",
                 modalities: ["audio", "text"],
-                instructions:"Start conversation with the user by saying 'Hello, how can I help you today?' Use the available tools when relevant. After executing a tool, you will need to respond (create a subsequent conversation item) to the user sharing the function result or error. If you do not respond with additional message with function result, user will not know you successfully executed the tool. Speak and respond in the language of the user.",
+                instructions:"Start conversation with the user by saying 'Hello, how can I help you today?' Use the available tools when relevant. After executing a tool, you will need to respond (create a subsequent conversation item) to the user sharing the function result or error. If you do not respond with additional message with function result, user will not know you successfully executed the tool. Speak and respond in the language of the user. You can also answer questions about the Unicorn Startup Creator project - what it is, who built it, how it works, its features, technology, ChainOpera AI integration, and more. Use the getProjectInfo and getDetailedProjectInfo tools to provide comprehensive information about the project. Always respond with voice when possible.",
                 tool_choice: "auto",
             }),
         });

@@ -8,28 +8,12 @@ import Link from "next/link"
 
 const presentations = [
   {
-    id: "demo",
-    title: "Demo Presentation",
-    description: "Sample presentation with voice control features",
-    slides: 5,
-    duration: "3-5 min",
-    category: "Demo"
-  },
-  {
-    id: "features",
-    title: "Features Overview",
-    description: "Overview of all application features and capabilities",
-    slides: 8,
-    duration: "5-7 min",
+    id: "unicorn-startup-creator",
+    title: "Unicorn Startup Creator & Presenter",
+    description: "The AI Agent That Creates and Pitches the Next Generation of Billion-Dollar Startups",
+    slides: 12,
+    duration: "8-10 min",
     category: "Product"
-  },
-  {
-    id: "tutorial",
-    title: "Voice Commands Tutorial",
-    description: "Learn how to use voice commands effectively",
-    slides: 6,
-    duration: "4-6 min",
-    category: "Tutorial"
   }
 ]
 
